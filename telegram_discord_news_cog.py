@@ -38,12 +38,6 @@ class TelegramDiscordCog(commands.Cog):
         if message.channel.id not in (NOTIF_CHANNEL, DS14_CHANGES_CHANNEL):
             return
 
-        prefix = (
-            "Из канала \"оповещения\":\n\n"
-            if message.channel.id == NOTIF_CHANNEL
-            else "Из канала \"мк-изменения\":\n\n"
-        )
-
         content = message.content
 
         # Обработка упоминаний каналов
@@ -91,7 +85,12 @@ class TelegramDiscordCog(commands.Cog):
 
         content = "\n".join(line.strip() for line in content.splitlines() if line.strip())
 
+        prefix = ""
+
+        if message.channel.id == NOTIF_CHANNEL: prefix = "Из канала \"оповещения\":\n\n" 
+        else: prefix = "Из канала \"мк-изменения\":\n\n"
         message_to_telegram = prefix + content
+
         if not message_to_telegram.strip():
             return
 
