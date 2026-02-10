@@ -70,7 +70,8 @@ class TelegramDiscordCog(commands.Cog):
         content = "\n".join(line.strip() for line in content.splitlines() if line.strip())
 
         prefix = "Из канала \"оповещения\":\n\n" if message.channel.id == NOTIF_CHANNEL else "Из канала \"мк-изменения\":\n\n"
-        message_to_telegram = prefix + content
+        end_message = "\n\n#Новости\n\nЖдём тебя в <a href=\"https://t.me/deadspace14\">💬Чате станции</a>"
+        message_to_telegram = prefix + content + end_message
 
         if not message_to_telegram.strip():
             return
