@@ -83,7 +83,14 @@ class TelegramDiscordCog(commands.Cog):
         content = re.sub(r'`(.*?)`', r'\1', content)
         content = re.sub(r'```.*?```', '', content, flags=re.DOTALL)
 
-        content = "\n".join(line.strip() for line in content.splitlines() if line.strip())
+        lines = content.split('\n')
+        processed_lines = []
+        for line in lines:
+            stripped_line = line.strip()
+            processed_lines.append(stripped_line)
+        content = '\n'.join(processed_lines)
+        content = re.sub(r'\n(\s*\n)+', '\n\n', content)
+        content = re.sub(r'[\n\s]+$', '', content)
         
         prefix_href = "https://discord.com/channels/1030160796401016883"
         if message.channel.id == NOTIF_CHANNEL: 
