@@ -77,7 +77,8 @@ class TelegramDiscordCog(commands.Cog):
             content
         )
 
-        content = re.sub(r'\*\*(.*?)\*\*', r'\1', content)
+        
+        content = re.sub(r'\*\*([^\*]+)\*\*', r'<b>\1</b>', content)
         content = re.sub(r'(\*|_)(.*?)(\*|_)', r'\2', content)
         content = re.sub(r'~~(.*?)~~', r'\1', content)
         content = re.sub(r'`(.*?)`', r'\1', content)
