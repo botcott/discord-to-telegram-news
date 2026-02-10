@@ -84,12 +84,14 @@ class TelegramDiscordCog(commands.Cog):
         content = re.sub(r'```.*?```', '', content, flags=re.DOTALL)
 
         content = "\n".join(line.strip() for line in content.splitlines() if line.strip())
-
-        prefix = ""
-
-        if message.channel.id == NOTIF_CHANNEL: prefix = "Из канала \"оповещения\":\n\n" 
-        else: prefix = "Из канала \"мк-изменения\":\n\n"
-        message_to_telegram = prefix + content
+        
+        if message.channel.id == NOTIF_CHANNEL: 
+            prefix = "<a href=\"https://discord.com/channels/1030160796401016883/1186681361021554818\">Новостное оповещение</a>:\n\n" 
+        else: 
+            prefix = f"<a href=\"https://discord.com/channels/1030160796401016883/1186681361021554818\">Обновление сборки:</a>:\n\n"
+        
+        end_message = "\n\n#Новости\n\nЖдём тебя в <a href=\"https://t.me/deadspace14\">💬Чате станции</a>"
+        message_to_telegram = prefix + content + end_message
 
         if not message_to_telegram.strip():
             return
